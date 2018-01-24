@@ -1,0 +1,458 @@
+\usepackage{amssymb,amsmath,latexsym,url,amsfonts,setspace,xspace,color}
+%\usepackage{xypic}
+\usepackage{graphicx}
+
+%%%%%
+
+\newcommand{\bump}{\hspace*{1.5em}}
+\newcommand{\linenum}[1]{\texttt{#1}\hspace*{.5em}}
+\newcommand{\dash}{{\mbox{-}}}
+\newcommand{\taglen}{{\tau}}
+\newcommand{\Pad}{P}
+\newcommand{\Ctr}{{S}}
+
+\newcommand{\outputs}{\Rightarrow}
+\newcommand{\prf}{\mathrm{prf}}
+\newcommand{\prp}{\mathrm{prp}}
+\newcommand{\tprp}{\mathrm{tprp}}
+\newcommand{\sprp} {{\pm\mathrm{prp}}}
+\newcommand{\stprp}{{\pm\mathrm{tprp}}}
+\newcommand{\ind} {{\mathrm{ind\mbox{-}{cpa}}}}
+\newcommand{\auth} {{\mathrm{auth}}}
+\newcommand{\indr}{{\mathrm{ind\$\mbox{-}{cpa}}}}
+\newcommand{\indrcca}{{\mathrm{ind\$\mbox{-}{cca}}}}
+\newcommand{\indcca}{{\mathrm{ind\mbox{-}{cca2}}}}
+\newcommand{\nmcca}{{\mathrm{nm\mbox{-}cca}}}
+
+\newcommand{\xxx}{{\mathrm{xxx}}}
+\newcommand{\Encrypt}{\mathrm{Encrypt}}
+\newcommand{\Decrypt}{\mathrm{Decrypt}}
+
+\newcommand{\ERROR}{{\textsc{Error}}}
+\newcommand{\invalid}{{\textsc{Invalid}}}
+
+\newcommand{\CBC}{\mathrm{CBC}}
+\newcommand{\CTR}{\mathrm{CTR}}
+\newcommand{\CT}{{\mathit{CT}}}
+
+\newcommand{\captionfont}{\small\sf }
+
+\newcommand{\sep}{\:}
+\newcommand{\kwfont}{\bf}
+\newcommand{\AND}{\mbox{\kwfont and}}
+\newcommand{\ALGORITHM}{\mbox{\kwfont Algorithm}}
+\newcommand{\BEGIN}{\mbox{\kwfont begin}}
+\newcommand{\DO}{\mbox{\kwfont do}}
+\newcommand{\ELSE}{\mbox{\kwfont else}}
+\newcommand{\END}{\mbox{\kwfont end}}
+\newcommand{\FOR}{\mbox{\kwfont for}}
+\newcommand{\IF}{\mbox{\kwfont if}}
+\newcommand{\RETURN}{\mbox{\kwfont return}}
+\newcommand{\THEN}{\mbox{\kwfont then}}
+\newcommand{\TO}{\mbox{\kwfont to}}
+
+\newcommand{\ZERO}{{\textbf{0}}}
+\newcommand{\ONE}{{\textbf{1}}}
+\newcommand{\error}{\mbox{\sc error}}
+\newcommand{\true}{{\mathtt{true}}}
+\newcommand{\false}{{\mathtt{false}}}
+\newcommand{\undef}{{\textsc{undefined}}}
+\newcommand{\defined}{{\texttt{defined}}}
+\newcommand{\dotdot}{{\,..\,}}
+\newcommand{\xor}{{\,\oplus\,}}
+\newcommand{\bits}{{\{0,1\}}}
+\newcommand{\bitss}{\bits^*}
+\newcommand{\e}{{\epsilon}}
+\newcommand{\outputlen}{\varsigma}
+
+\newlength{\saveparindent}
+\setlength{\saveparindent}{\parindent}
+\newlength{\saveparskip}
+\setlength{\saveparskip}{\parskip}
+
+
+
+% ====================================================================
+
+% Theorem environments
+
+\newtheorem{thm}{Theorem} %[section]
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{propo}[thm]{Proposition}
+\newtheorem{defn}[thm]{Definition}
+\newtheorem{assm}[thm]{Assumption}
+\newtheorem{clm}[thm]{Claim}
+\newtheorem{rem}[thm]{Remark}
+
+\newenvironment{theorem}{\begin{thm}\begin{sl}}%
+{\end{sl}\end{thm}}
+\newenvironment{lemma}{\begin{lem}\begin{sl}}%
+{\end{sl}\end{lem}}
+\newenvironment{corollary}{\begin{cor}\begin{sl}}%
+{\end{sl}\end{cor}}
+\newenvironment{proposition}{\begin{propo}\begin{sl}}%
+{\end{sl}\end{propo}}
+\newenvironment{definition}{\begin{defn}\begin{em}}%
+{\end{em}\end{defn}}
+\newenvironment{assumption}{\begin{assm}\begin{em}}%
+{\end{em}\end{assm}}
+\newenvironment{claim}{\begin{clm}\begin{sl}}%
+{\end{sl}\end{clm}}
+\newenvironment{remark}{\begin{rem}\begin{em}}%
+{\end{em}\end{rem}}
+
+\newcommand{\secref}[1]{\mbox{Section~\ref{#1}}}
+\newcommand{\apref}[1]{\mbox{Appendix~\ref{#1}}}
+\newcommand{\thref}[1]{\mbox{Theorem~\ref{#1}}}
+\newcommand{\prref}[1]{\mbox{Proposition~\ref{#1}}}
+\newcommand{\defref}[1]{\mbox{Definition~\ref{#1}}}
+\newcommand{\corref}[1]{\mbox{Corollary~\ref{#1}}}
+\newcommand{\lemref}[1]{\mbox{Lemma~\ref{#1}}}
+\newcommand{\clref}[1]{\mbox{Claim~\ref{#1}}}
+\newcommand{\propref}[1]{\mbox{Proposition~\ref{#1}}}
+\newcommand{\figref}[1]{\mbox{Figure~\ref{#1}}}
+%\newcommand{\eqref}[1]{\mbox{(\ref{#1})}}
+
+\newcommand{\maybespace}{{\ifnum\springer=0{{\ }}\fi}}
+
+
+\def\sqed{{\hspace{5pt}\rule[-1pt]{3pt}{9pt}}}
+% deluxe proof environment
+\def\qsym{\vrule width0.6ex height1em depth0ex}
+\newcount\proofqeded
+\newcount\proofended
+\def\qed{ {\hspace{5pt}\rule[-1pt]{3pt}{9pt}}
+\end{rm}\addtolength{\parskip}{-0pt}
+\setlength{\parindent}{\saveparindent}
+\global\advance\proofqeded by 1 }
+
+\newenvironment{proof}%
+ {\proofstart}%
+ {\ifnum\proofqeded=\proofended\qed\fi \global\advance\proofended by 1
+  \medskip}
+\makeatletter
+\def\proofstart{\@ifnextchar[{\@oprf}{\@nprf}}
+\def\@oprf[#1]{\begin{rm}\protect\vspace{6pt}\noindent{\bf Proof of #1:\
+}%
+\addtolength{\parskip}{5pt}\setlength{\parindent}{0pt}}
+\def\@nprf{\begin{rm}\protect\vspace{6pt}\noindent{\bf Proof:\ }%
+\addtolength{\parskip}{5pt}\setlength{\parindent}{0pt}}
+
+% ========================================================================
+
+% Lists
+
+\newcounter{ctr}
+\newcounter{savectr}
+\newcounter{ectr}
+
+\newenvironment{newenum}{%
+\begin{list}{{\rm (\arabic{ctr})}\hfill}{\usecounter{ctr} \labelwidth=18pt%
+\labelsep=7pt \leftmargin=25pt \topsep=3pt%
+\setlength{\listparindent}{\saveparindent}%
+\setlength{\parsep}{\saveparskip}%
+\setlength{\itemsep}{2pt} }}{\end{list}}
+
+\newenvironment{bignewenum}{%
+\begin{list}{{\bf (\arabic{ctr})}\hfill}{\usecounter{ctr} \labelwidth=18pt%
+\labelsep=7pt \leftmargin=25pt \topsep=6pt%
+\setlength{\listparindent}{\saveparindent}%
+\setlength{\parsep}{\saveparskip}%
+\setlength{\itemsep}{6pt} }}{\end{list}}
+
+\newenvironment{tiret}{%
+\begin{list}{\hspace{2pt}\rule[0.5ex]{6pt}{1pt}\hfill}{\labelwidth=18pt%
+\labelsep=7pt \leftmargin=25pt \topsep=3pt%
+\setlength{\listparindent}{\saveparindent}%
+\setlength{\parsep}{\saveparskip}%
+\setlength{\itemsep}{1pt} }}{\end{list}}
+
+\newenvironment{onelist}{%
+\begin{list}{{\rm (\arabic{ctr})}\hfill}{\usecounter{ctr} \labelwidth=15pt%
+\labelsep=2pt \leftmargin=17pt \topsep=1pt% 
+\setlength{\listparindent}{\saveparindent}%
+\setlength{\parsep}{\saveparskip}%
+\setlength{\itemsep}{0pt} }}{\end{list}} 
+
+\newenvironment{twolist}{%
+\begin{list}{{\rm (\arabic{ctr}.\arabic{ectr})}%
+\hfill}{\usecounter{ctr} \labelwidth=37pt%
+\labelsep=7pt \leftmargin=44pt \topsep=0pt%
+\setlength{\listparindent}{\saveparindent}%
+\setlength{\parsep}{\saveparskip}%
+\setlength{\itemsep}{0pt} }}{\end{list}}
+
+\newenvironment{newitemize}{%
+\begin{list}{$\bullet$}{\labelwidth=19pt%
+\labelsep=7pt \leftmargin=26pt \topsep=3pt%
+\setlength{\listparindent}{\saveparindent}%
+\setlength{\parsep}{\saveparskip}%
+\setlength{\itemsep}{3pt} }}{\end{list}}
+
+% =========================================================================
+
+% General
+
+\newlength{\savejot}
+\setlength{\savejot}{\jot}
+
+
+\newcommand{\heading}[1]{{\vspace{10pt}\noindent{\textsc{#1}}}}
+\newcommand{\noskipheading}[1]{{\noindent{\textsc{#1}}}}
+
+\newcommand{\headingg}[1]{{\textsc{#1}}}
+\newcommand{\Heading}[1]{{\vspace{8pt}\noindent\textbf{#1}}}
+
+\newcommand{\emptystring}{\varepsilon}
+\newcommand{\concat}{\:\|\:}
+\newcommand{\Concat}{\;\|\;}
+\newcommand{\Colon}{{\,:\;\,}}
+
+\newcommand{\N}{{{\sf N}}}
+\newcommand{\R}{{{\rm\bf R}}}
+\newcommand{\Y}{{{\sf Y}}}
+\newcommand{\Z}{{{Z}}}
+
+\newcommand{\calC}{{\cal C}}
+\newcommand{\calD}{{\cal D}}
+\newcommand{\calE}{{\cal E}}
+\newcommand{\calF}{{\cal F}}
+\newcommand{\calI}{{\cal I}}
+\newcommand{\calO}{{\cal O}}
+\newcommand{\calP}{{\cal P}}
+\newcommand{\calR}{{\cal R}}
+\newcommand{\calG}{{\cal G}}
+\newcommand{\calK}{{\cal K}}
+\newcommand{\calM}{{\cal M}}
+\newcommand{\calN}{{\cal N}}
+\newcommand{\calT}{{\cal T}}
+
+\newcommand{\D}{{\calD}}
+\newcommand{\E}{{\calE}}
+\newcommand{\K}{{\calK}}
+\newcommand{\I}{{\calI}}
+\renewcommand{\R}{{\calR}}
+\renewcommand{\O}{{\calO}}
+\newcommand{\M}{{\mathsf{Message}}}
+\newcommand{\C}{{\mathsf{Ciphertext}}}
+
+
+\newcommand{\Key}{\mathsf{Key}}
+\newcommand{\IVspace}{\mathsf{IV}}
+\newcommand{\Nonce}{\mathsf{Nonce}}
+\newcommand{\Plaintext}{\mathsf{Plaintext}}
+\newcommand{\Ciphertext}{\mathsf{Ciphertext}}
+
+\newcommand{\goesto}{{\rightarrow}}
+\newcommand{\eqdef}{\stackrel{\rm def}{=}}
+\newcommand{\getsr}{{\:\stackrel{{\scriptscriptstyle \hspace{0.2em}\$}} {\leftarrow}\:}}
+\newcommand{\getsd}{{\:\stackrel{{\scriptscriptstyle \hspace{0.2em}D}} {\leftarrow}\:}}
+\renewcommand{\choose}[2]{{{#1}\atopwithdelims(){#2}}}
+\newcommand{\abs}[1]{{\displaystyle \left| {#1} \right| }}
+\newcommand{\EE}[1]{{\E\left[{#1}\right]}}
+
+\newcommand{\Damgard}{{\mbox{Damg{\aa}rd}}}
+
+\newcommand{\strtonum}[1]{{ \mathsf{str2num}\left({#1}\right) }}
+\newcommand{\numtostr}[2]{{ \mathsf{num2str}_{\scriptscriptstyle #2} 
+                              \left( {#1} \right) }}
+
+\newcommand{\Adv}{{\mathbf{\bf Adv}}}
+
+\newcommand{\Randword}{\mathrm{Rand}}
+\newcommand{\Funcword}{\mathrm{Func}}
+\newcommand{\Permword}{\mathrm{Perm}}
+\newcommand{\Randd}[2]{\ensuremath{\Randword({#1},{#2})}}
+\newcommand{\Rand}[1]{\ensuremath{\Randword({#1})}}
+\newcommand{\Funcc}[2]{\ensuremath{\Funcword({#1},{#2})}}
+\newcommand{\Func}[1]{\ensuremath{\Funcword({#1},{#1})}}
+\newcommand{\Rn}{{\calR_n}}
+\newcommand{\Pn}{{\calP_n}}
+\newcommand{\Perm}[1]{\ensuremath{\Permword({#1})}}
+\newcommand{\Permm}[2]{\ensuremath{\Permword({#1},{#2})}}
+
+\newcommand{\GF}{{\mathrm{GF}}}
+
+\newcommand{\code}[1]{{\langle{#1}\rangle}}
+
+\newcommand{\then}{{;\;}}
+\newcommand{\andthen}{{\::\;\;}}
+
+\newcommand{\ie}{i.e.}
+\newcommand{\eg}{e.g.}
+\newcommand{\adv}{\ensuremath{\mathrm{Adv}}}
+\newcommand{\hdir}{\mbox{\vspace{6mm}\~{ }}}
+
+
+
+% ========================================================================
+
+\makeatletter
+% from  /usr/local/lib/tex/inputs/article.sty  and
+%       /usr/local/lib/tex/inputs/latex.tex
+
+\newcommand{\imply}{\boldmath{\Rightarrow}}
+
+\newcommand{\IV}{{V}}
+
+\newcommand{\CBCexplicitIV} {{\mathrm{CBC }}}
+\newcommand{\CBCrandomIV}   {{\mathrm{CBC \$   }}}
+\newcommand{\CBCencipherIVone} {{\mathrm{CBC 1}}}
+\newcommand{\CBCencipherIVtwo} {{\mathrm{CBC 2}}}
+\newcommand{\CBCencipherIVtwox} {{\mathrm{CBC 2 X}}}
+
+\newcommand{\simulate}[3]{{\mbox{\textsl{SimulateOracles}}(#1,#2,#3)}}
+\renewcommand{\Y}{{\cal Y}}
+\newcommand{\setinvalid}{\mathrm{Invalid}}
+\newcommand{\X}{{\cal X}}
+\newcommand{\range}{\mathrm{Range}}
+\newcommand{\domain}{\mathrm{Domain}}
+\newcommand{\ran}{\mathrm{Range}}
+\newcommand{\dom}{\domain}
+\newcommand{\gamef}{\mathrm{GameF}}
+\newcommand{\gamer}{\mathrm{Game\$}}
+\newcommand{\cran}{\overline{\range}}
+\newcommand{\cdom}{\overline{\domain}}
+\newcommand{\bad}{\mathit{bad}}
+\newcommand{\Initialize}{{\textbf{Initialize}}}
+\newcommand{\Finalize}  {{\textbf{Finalize}}}
+\newcommand{\Onquery}   {{\textbf{procedure~}}}
+\newcommand{\onquery}   {{\textbf{query~}}}
+\newcommand{\Update}{{\textnormal{update}}}
+\newcommand{\fn}{\footnotesize}
+
+
+\newcommand{\TabC}{\mathtt{C}}
+\newcommand{\Tabc}{\mathtt{c}}
+\newcommand{\TabD}{\mathtt{D}}
+\newcommand{\TabE}{\mathtt{E}}
+\newcommand{\TabYtoX}{\mathtt{YtoX}}
+\newcommand{\TabX}{\mathtt{X}}
+\newcommand{\TabY}{\mathtt{Y}}
+\newcommand{\TabT}{\mathtt{T}}
+\newcommand{\TabR}{\mathtt{R}}
+\newcommand{\TabF}{\mathtt{F}}
+\newcommand{\Tabf}{\mathtt{f}}
+\newcommand{\TabFx}{\mathtt{F_x}}
+\newcommand{\TabFy}{\mathtt{F_y}}
+\newcommand{\TabZ}{\mathtt{T}}
+\newcommand{\TabQueried}{\mathtt{Q}}
+\newcommand{\TabValue}{\mathtt{V}}
+
+
+\newcommand{\procfont}[1]{\textbf{#1}}
+
+\newcommand{\query}[1]{\procfont{query} {#1}:}
+\newcommand{\queryl}[1]{\underline{\procfont{query} {#1}:}}
+\newcommand{\oracle}[1]{\underline{\procfont{oracle} {#1}:}}
+\newcommand{\oraclev}[1]{\underline{\procfont{oracle} {#1}:}\smallskip}
+\newcommand{\procedure}[1]{\underline{\procfont{procedure} {#1}:}}
+\newcommand{\procedurev}[1]{\underline{\procfont{procedure} {#1}:}\smallskip}
+\newcommand{\subroutine}[1]{\underline{\procfont{subroutine} {#1}:}}
+\newcommand{\subroutinev}[1]{\underline{\procfont{subroutine} {#1}:}\smallskip}
+\newcommand{\subroutinenl}[1]{{\procfont{subroutine} {#1}:}}
+\newcommand{\subroutinenlv}[1]{{\procfont{subroutine} {#1}:}\smallskip}
+\newcommand{\adversary}[1]{\underline{\procfont{adversary} {#1}:}}
+\newcommand{\adversaryv}[1]{\underline{\procfont{adversary} {#1}:}\smallskip}
+\newcommand{\experiment}[1]{\underline{{#1}}}
+\newcommand{\experimentv}[1]{\underline{{#1}}\smallskip}
+
+\newcommand{\PrK}{{\mbox{$\Pr_K$}}}
+\newcommand{\PrF}{{\mbox{$\Pr_F$}}}
+\newcommand{\Bad}{{\mathsf{BAD}}}
+
+\newcommand{\ctr}{\mathrm{CTR}}
+\newcommand{\ctrFE}{{\ctr[F \times E]}}
+\newcommand{\ctrRE}{{\ctr[{\cal R}_1 \times E]}}
+\newcommand{\ctrRR}{{\ctr[{\cal R}_1 \times {\cal R}_2]}}
+\newcommand{\KeyE}{\Key_E}
+\newcommand{\KeyF}{\Key_F}
+\newcommand{\TimeX}{\mathrm{Time}}
+\newcommand{\authh}{{\mathrm{auth}*}}
+\newcommand{\LAND}{{\;\wedge\;}}
+
+
+%NEW ADDITIONS IN 2009%
+\newcommand{\mathsc}[1]{{\mbox{\textsc{#1}}}}
+\newcommand{\given}{\;|\;}
+
+%TABLE MAKING ENVIRONMENTS
+
+\newcommand{\mpage}[2]{\begin{minipage}{#1\textwidth}
+    #2 \end{minipage}}
+\newcommand{\fpage}[2]{\framebox{\begin{minipage}{#1\textwidth}
+      #2 \end{minipage}}}
+
+\newcommand{\hfpages}[3]{\hfpagess{#1}{#1}{#2}{#3}}
+\newcommand{\hfpagess}[4]{
+		\begin{tabular}{c@{\hspace*{.5em}}c}
+                  \framebox{\begin{minipage}[t]{#1\textwidth}\setstretch{1.1} #3 \end{minipage}} 
+                  &  
+                  \framebox{\begin{minipage}[t]{#2\textwidth}\setstretch{1.1} #4 \end{minipage}}
+		\end{tabular}
+	}
+\newcommand{\hfpagesss}[6]{
+		\begin{tabular}{c@{\hspace*{.5em}}c@{\hspace*{.5em}}c}
+                  \framebox{\begin{minipage}[t]{#1\textwidth} #4 \end{minipage}} 
+                  &  
+                  \framebox{\begin{minipage}[t]{#2\textwidth} #5 \end{minipage}}
+                  &  
+                  \framebox{\begin{minipage}[t]{#3\textwidth} #6 \end{minipage}}
+		\end{tabular}
+	}
+
+
+\def\codestretch{1.1}
+
+\newcommand{\hpagesl}[3]{
+	\begin{tabular}{c|c}
+	  \begin{minipage}{#1\textwidth}\setstretch{\codestretch} #2 \end{minipage} 
+	  & 
+	  \begin{minipage}{#1\textwidth} #3 \end{minipage}
+	\end{tabular}
+	}
+
+\newcommand{\hpagessl}[4]{
+	\begin{tabular}{c|c}
+          \begin{minipage}[t]{#1\textwidth}\setstretch{\codestretch} #3 \end{minipage} 
+	   & 
+	   \begin{minipage}[t]{#2\textwidth}\setstretch{\codestretch} #4 \end{minipage}
+	\end{tabular}
+	}
+
+\newcommand{\hpages}[3]{
+	\begin{tabular}{cc}
+	   \begin{minipage}[t]{#1\textwidth}\setstretch{\codestretch} #2 \end{minipage} 
+	   & 
+	   \begin{minipage}[t]{#1\textwidth}\setstretch{\codestretch} #3 \end{minipage}
+	\end{tabular}
+      } \newcommand{\hpagess}[4]{
+    \begin{tabular}{cc}
+	   \begin{minipage}[t]{#1\textwidth}\setstretch{\codestretch} #3 \end{minipage} 
+	   &
+	   \begin{minipage}[t]{#2\textwidth}\setstretch{\codestretch} #4 \end{minipage} 
+    \end{tabular}
+  }
+
+\newcommand{\hpagesss}[6]{
+	\begin{tabular}{ccc}
+          \begin{minipage}[t]{#1\textwidth}\setstretch{\codestretch} #4 \end{minipage} & 
+	\begin{minipage}[t]{#2\textwidth}\setstretch{\codestretch} #5 \end{minipage} &
+	\begin{minipage}[t]{#3\textwidth}\setstretch{\codestretch} #6 \end{minipage}
+	\end{tabular}}
+\newcommand{\hpagesssl}[6]{
+	\begin{tabular}{c|c|c}
+	\begin{minipage}[t]{#1\textwidth}\setstretch{\codestretch} #4 \end{minipage} & 
+	\begin{minipage}[t]{#2\textwidth}\setstretch{\codestretch} #5 \end{minipage} &
+	\begin{minipage}[t]{#3\textwidth}\setstretch{\codestretch} #6 \end{minipage}
+	\end{tabular}}
+\newcommand{\hpagessss}[8]{
+	\begin{tabular}{cccc}
+	\begin{minipage}[t]{#1\textwidth}\setstretch{\codestretch} #5 \end{minipage} & 
+	\begin{minipage}[t]{#2\textwidth}\setstretch{\codestretch} #6 \end{minipage} &
+	\begin{minipage}[t]{#3\textwidth}\setstretch{\codestretch} #7 \end{minipage}
+	\begin{minipage}[t]{#4\textwidth}\setstretch{\codestretch} #8 \end{minipage}
+	\end{tabular}}
+
+

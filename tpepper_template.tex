@@ -1,0 +1,78 @@
+\documentclass[12pt, twocolumn]{article}
+\usepackage{graphicx}
+\usepackage{verbatim}
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\textheight}{9in}
+\setlength{\textwidth}{6.5in}
+\setlength{\topmargin}{-0.05in}
+
+\def \binom{ \atopwithdelims ( )}
+
+\input{macros}
+
+%typeset as follows (can leave off the file's tex/dvi extensions here):
+%  latex $filename
+%  bibtex $filename
+%  latex $filename
+%  latex $filename
+%  dvipdf $filename  (alternatively MacTex has "dvipdft" executable here)
+%...share the $filename.pdf
+
+\parindent 0pt             %No indentation at the start of each paragraph
+\parskip 8pt               %5pt is the gap between paragraphs
+
+\begin{document}
+
+\title{PUT THE TITLE HERE}
+\author{%  Authors, affiliations, and email addresses go here, like this:
+Timothy Pepper - PUT THE COURSE HERE\\
+{\ttfamily\normalsize tpepper@cs.pdx.edu}\\
+} % end author section
+\date{\today}
+
+
+\maketitle
+
+\begin{abstract}
+
+The abstract goes here.
+
+\end{abstract}
+
+\section{Put a Section Title Here}
+
+Put some text and always cite all your references\cite{vanmeter2006aiq}.
+And some more text text text.
+
+And a list is list this
+\begin{itemize}
+\item Foo
+\item Bar
+\item Baz
+\end{itemize}
+
+There is a lot that can be done with maths easily as well.
+\[
+\frac{\delta\rho}{\delta\textrm{t}} = L[\rho] \equiv -
+\frac{i}{\hbar}[\textbf{H},\rho] + L_{D}[\rho]
+\]
+Who dilly:
+\[
+L_{D}[\rho] = \frac{1}{2} \sum_{\alpha,\beta=1}^{M} a_{\alpha\beta}
+L_{\textbf{F}_{\alpha}\textbf{F}_{\beta}} [\rho]
+\]
+And then you may want to reference certain parts of the equations, like the
+{\bf F} members or talk about Beryllium ions ($^{\textrm{9}}$Be$^{\textrm{+}}$).
+
+You can literally go {\it crazy} with it.  Don't forget that ``quoting'' is
+interesting.  And some characters (eg: \%) need escaping.
+
+\section{Conclusion}
+
+There probably needs to be a conclusion.
+
+%bibtex makes life lovely...simple put the bibtex in mybib.bib
+\bibliography{mybib}{}
+\bibliographystyle{plain}
+\end{document}
